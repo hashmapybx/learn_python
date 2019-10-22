@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{#这个. 号的功能很强大的 看作是索引来获取list对象的值 字典对象#}
+    <h1> hello {{ list.0 }}</h1>
+    <h1>{{ d.name  }}</h1>
+    <h1>{{ d.age  }}</h1>
+    <h1>{{ d.hobby  }}</h1>
+
+    <h1> {{ animal.name }}</h1>
+    <h1> {{ animal.age }}</h1>
+
+
+    <h1>{{ animal.age|add:3 }}</h1>
+    <h1>{{ test|cut:' ' }}</h1>
+    <h1>{{ t|date:"Y-m-d" }}</h1>
+<h1>{{ a|safe }}</h1>
+</body>
+</html>
