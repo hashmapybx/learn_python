@@ -13,7 +13,7 @@ import re
 import os
 from bs4 import BeautifulSoup
 import  random
-
+from time import sleep
 
 proxy = '111.29.3.184:8080|111.29.3.224:8080|111.29.3.220:8080'
 proxies = {
@@ -22,7 +22,6 @@ proxies = {
 
 }
 headers={
-
 "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
 }
 
@@ -146,14 +145,26 @@ def main():
                     for pid in list_a:
                         pid = pid[8:]
                         a_path = '/'.join(pid.split('/')[-3:-1])
-                        insatnce_name = os.path.split(path)[-1]
+                        insatnce_name = os.path.split(pid)[-1]
                         # # print(a_path)
                         out_path = os.path.join(save_path, patient_id,country,a_path)
                         # print(out_path)
                         if not os.path.exists(out_path):
                             os.makedirs(out_path)
-                        urllib.request.urlretrieve(pid, os.path.join(out_path, insatnce_name))
-                        print('download')
+                        # print(pid)
+                        # print(os.path.join(out_path, insatnce_name))
+                        # urllib.request.urlretrieve(pid, os.path.join(out_path, insatnce_name))
+                        # print('download')
+                        html = requests.get(pid, headers=headers)
+                        if html.status_code == 200:
+                            with open(os.path.join(out_path, insatnce_name), "wb") as f:
+                                f.write(html.content)
+                            break
+                        elif html.status_code == 404:
+                            sleep(0.05)
+                            continue
+                        else:
+                            return None
 
 
 
